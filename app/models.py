@@ -26,3 +26,13 @@ class User(UserMixin, db.Model):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
+
+class Pitch(UserMixin, db.Model):
+    __tablename__ = 'pitches'
+    pitch_id = db.Column(db.Integer, primary_key =True)
+    title = db.Column(db.String(255))
+    category = db.Column(db.String(255))
+    pitch = db.Column(db.String())
+    date = db.Column(db.DateTime())
+    def __repr__(self):
+        return f'{self.username}'
