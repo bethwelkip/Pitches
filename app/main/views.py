@@ -7,7 +7,7 @@ from flask_login import login_required, login_user
 from ..email import mail_message
 
 @main.route('/')
-# @login_required
+@login_required
 def index():
     title = "Welcome to 1MinPitch"
     return render_template('index.html', title = title)
@@ -17,7 +17,7 @@ def profile():
     return render_template('profile.html')
 
 @main.route('/pitch/new' , methods=['GET','POST'])
-# @login_required
+@login_required
 def new_pitch():
     form = PitchForm()
     if form.validate_on_submit():
@@ -40,11 +40,14 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.name.data).first()
         name = form.name.data
-        # password = form.password.data
-        if user is not None: #and user.verify_password(form.password.data)
+        print("ARe they?", user.verify_password(form.password.data))
+        if user is not None and user.verify_password(form.password.data):
+            print("HERE")
             login_user(user)
             return redirect(url_for('main.index'))
-        # db.query
+        else:
+            print("**************************************")
+            redirect(url_for('main.login'))
     return render_template('login.html', login_form = form, title = title)
 
 @main.route('/registration', methods = ['GET', 'POST'])
@@ -52,13 +55,11 @@ def registration():
     form = RegistrationForm()
     title = "Welcome  to 1MinPitch!!!"
     if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        passw = User.password_hash(password)
-        email = form.email_address.data
-        user = User(username = username, password = passw, email = email)
+        # username = form.username.data
+        # email = form.email_address.data
+        user = User(username = form.username.data,email = form.email_address.data, password = form.password.data)
         db.session.add(user)
         db.session.commit()
         mail_message("Welcome to 1MinPitch", "welcome/welcome_user",email,user=user)
-        return redirect(url_for('main.login'))
+        return redirect(url_for('main.login') or url_for('main.login') )
     return render_template('registration.html', reg_form = form, title = title)

@@ -13,7 +13,7 @@ class PitchForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     name = StringField("Username", validators = [Required()])
-    password = StringField("Username", validators = [Required()])         
+    password = PasswordField("Password", validators = [Required()])         
     submit = SubmitField('Submit')
 
 class RegistrationForm(FlaskForm):
