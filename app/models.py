@@ -1,17 +1,18 @@
 from . import db, login_manager
-from sqlalchemy.sql import func
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+def load_user(userid):
+    return User.query.get(userid)
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key =True)
+    userid = db.Column(db.Integer, primary_key =True)
     username = db.Column(db.String(255))
-    _password = db.Column(db.String(255))
+    ipassword = db.Column(db.String(255))
     email = db.Column(db.String(255)) 
+    logged_in = db.Column(db.Boolean)
+    pitches = db.relationship('Pitch',backref = 'user',lazy="dynamic")
     
 
     def __repr__(self):
@@ -23,20 +24,31 @@ class User(UserMixin, db.Model):
     
     @password.setter
     def password_hash(self, password):
-        self._password = generate_password_hash(password)
+        self.ipassword = generate_password_hash(password)
     
     def verify_password(self, password):
         # print("########", self._password, "|||||||",passw, "#######")
-        return check_password_hash(self._password,password)
-
+        return check_password_hash(self.ipassword,password)
 
 
 class Pitch(UserMixin, db.Model):
     __tablename__ = 'pitches'
-    pitch_id = db.Column(db.Integer, primary_key =True)
+    pitch_id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(255))
     category = db.Column(db.String(255))
     pitch = db.Column(db.String())
     date = db.Column(db.DateTime())
+    user_id = db.Column(db.Integer,db.ForeignKey('users.userid'))
+    pitches = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
     def __repr__(self):
-        return f'{self.username}'
+        return f'{self.title}'
+
+class Comment(UserMixin, db.Model):
+    __tablename__ = 'comments'
+    comment_id = db.Column(db.Integer, primary_key = True)
+    downvote = db.Column(db.Integer)
+    upvote = db.Column(db.Integer)
+    comment = db.Column(db.String())
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.pitch_id'))
+    def __repr__(self):
+        return f'{self.comment}'

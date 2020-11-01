@@ -31,3 +31,7 @@ class RegistrationForm(FlaskForm):
    
     
     submit = SubmitField('Submit')
+class Comment(FlaskForm):
+    comment =TextAreaField("Comment")
+    submit =SubmitField("Submit Comment")
+

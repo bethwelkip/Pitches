@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
-{% import 'macro.html' as macro %}
+{% import 'macros.html' as macro %}
+
 
 {% block navbar %}
 {% include 'navbar.html' %}
 {% endblock %}
 
+
 {% block content %}
 <div class="container-fluid">
-    <h1 style="text-align: center;">Here are Your Pitches</h1>
+    {{ macro.displayUserPitches(pitch, form) }}
+    <!-- <h1 style="text-align: center;">Here are Your Pitches</h1>
     <br>
     <div class="col-md-4">
         <div class="jumbotron">
@@ -30,7 +33,7 @@
             <br>
             Vote downvote
         </div>
-    </div>
+    </div> -->
 
 </div>
 {% endblock %}
