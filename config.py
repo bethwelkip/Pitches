@@ -2,7 +2,7 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://bethwelkiplimo:password@localhost/pitches'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://bethwelkiplimo:password@localhost/pitches'
     SQLALCHEMY_TRACK_MODIFICATIONS  = False
 
     #  email configurations
@@ -17,16 +17,20 @@ class Config:
     def init_app(app):
         pass
 
-
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://bethwelkiplimo:password@localhost/pitches_test'
 class ProdConfig(Config):
     pass
 
 
-class DevConfig(Config):
+
+class DevConfig(Config): 
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://bethwelkiplimo:password@localhost/pitches' 
     DEBUG = True
 
 config_options = {
 'development':DevConfig,
-'production':ProdConfig
+'production':ProdConfig,
+'test':TestConfig
 
 }
