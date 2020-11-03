@@ -17,6 +17,8 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'{self.username}'
+    def get_id(self):
+           return (self.userid)
 
     @property
     def password(self):
@@ -38,6 +40,8 @@ class Pitch(UserMixin, db.Model):
     category = db.Column(db.String(255))
     pitch = db.Column(db.String())
     date = db.Column(db.DateTime())
+    downvotes = db.Column(db.Integer)
+    upvotes = db.Column(db.Integer)
     user_id = db.Column(db.Integer,db.ForeignKey('users.userid'))
     pitches = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
     def __repr__(self):
@@ -46,8 +50,6 @@ class Pitch(UserMixin, db.Model):
 class Comment(UserMixin, db.Model):
     __tablename__ = 'comments'
     comment_id = db.Column(db.Integer, primary_key = True)
-    downvote = db.Column(db.Integer)
-    upvote = db.Column(db.Integer)
     comment = db.Column(db.String())
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.pitch_id'))
     def __repr__(self):
