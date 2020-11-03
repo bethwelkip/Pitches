@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import 'macros.html' as macro %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card">
+            <h1>{{pitch.title}}</h1>
+            <div class="card-body">
+                {{pitch.pitch}}
+            </div>
+            <br>
+            Created on {{date[0]}} at {{date[1]}}
+        </div>
+    </div>
+
+    <div class="col-md-4"></div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">{{wtf.quick_form(form)}}</div>
+    <div class="col-md-4">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-2">{{wtf.quick_form(upvote)}}{{votes[0]}} </div>
+    <div class="col-md-2">{{wtf.quick_form(downvote)}} {{votes[1]}}</div>
+    <div class="col-md-4">
+    </div>
+</div>
+<br>
+{{macro.displayComments(comments)}}
+{% endblock %}
