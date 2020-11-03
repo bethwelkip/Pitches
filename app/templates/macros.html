@@ -1,4 +1,5 @@
 {% import "bootstrap/wtf.html" as wtf %}
+
 {% macro displayPitch(pitches, form) %}
 <div class="row">
     <div class="col-md-12"></div>
@@ -10,7 +11,9 @@
     <div class="jumbotron">
         <h3><b>{{pitch.title}}</b></h3>
         {{pitch.pitch}}
-        {{wtf.quick_form(form)}}
+        <br>
+        <button> <a href="/{{pitch.title}}/comment">View Pitch</a></button>
+        <br>
     </div>
 </div>
 {% endif %}
@@ -26,7 +29,9 @@
         <h3><b>{{pitch.title}}</b></h3>
 
         {{pitch.pitch}}
-        {{wtf.quick_form(form)}}
+        <br>
+        <button> <a href="/{{pitch.title}}/comment">View Pitch</a></button>
+        <br>
     </div>
 </div>
 {% endif %}
@@ -43,7 +48,9 @@
     <div class="jumbotron">
         <h3><b>{{pitch.title}}</b></h3>
         {{pitch.pitch}}
-        {{wtf.quick_form(form)}}
+        <br>
+        <button> <a href="/{{pitch.title}}/comment">View Pitch</a></button>
+        <br>
     </div>
 </div>
 {% endif %}
@@ -51,18 +58,37 @@
 <div class="row">
     <div class="col-md-12"></div>
 </div>
-<h1 style="text-align: center;">OTHER PITCHES</h1>
 <hr>
 <hr>
 {% endmacro %}
 
 
 {% macro displayUserPitches(pitch,form)%}
-<form action="">{{wtf.quick_form(form)}}</form>
 {% for user, pitches in pitch %}
 <h1 style="text-align: center;"> {{user.username}} </h1>
 {{displayPitch(pitches, form)}}
 {% endfor %}
 
+
+{% endmacro%}
+
+{% macro displayComments(comments) %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h2>Comments</h2>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% for comment in comments %}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <hr>{{comment}}</div>
+    <div class="col-md-4"></div>
+</div>
+
+{% endfor %}
 
 {% endmacro%}
