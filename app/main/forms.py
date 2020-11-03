@@ -2,13 +2,13 @@ from flask_wtf import FlaskForm
 from ..models import User
 from .. import db
 from wtforms import StringField, DateField, SubmitField, TextAreaField, PasswordField,ValidationError, validators
-from wtforms.validators import Required, Optional, Email
+from wtforms.validators import Required, Optional, Email, EqualTo
 from wtforms import RadioField
 class PitchForm(FlaskForm):
     title = StringField('Pitch Title', validators = [Required()])
     category = StringField('Pitch Category',description="For example 'Fun', 'Interview', 'Class'", validators = [Required()])
     pitch = TextAreaField('Your Pitch', validators = [Required()])
-    date = DateField('Pitch Date', description = "Use the format YYYY-MM-DD", validators = [Optional()])
+    date = DateField('Pitch Date', description = "Use the format YYYY-MM-DD", validators = [Required()])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
@@ -19,7 +19,7 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField("Username", validators = [Required()])
     email_address =StringField("Email Address", validators = [Required(), Email()])
-    password = PasswordField("Password", validators = [Required()])
+    password = PasswordField("Password", validators = [Required(),EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField("Confirm Password")
 
     def validate_username(self, username):
@@ -32,6 +32,9 @@ class RegistrationForm(FlaskForm):
     
     submit = SubmitField('Submit')
 class Comment(FlaskForm):
-    comment =TextAreaField("Comment")
+    comment =StringField("Comment",  validators = [Required()])
     submit =SubmitField("Submit Comment")
-
+class Upvote(FlaskForm):
+    upvote = SubmitField("Upvote")
+class Downvote(FlaskForm):
+    downvote = SubmitField("Downvote")
