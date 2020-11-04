@@ -19,7 +19,7 @@ If you are only interested in viewing the deployed web app, click on the link be
 
 ## Installation Requirements
   If you would like to look at or toy around further with the source code, follow the following steps:
-  * Clone this repository and navigate to the folder: git clone 
+  * Clone this repository and navigate to the folder: git clone https://github.com/bethwelkip/Pitches.git
 
   Once in the folder, open your terminal and run the following commands to set up your working environment:-
   * sudo pip install python3.7
