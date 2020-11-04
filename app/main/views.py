@@ -120,13 +120,13 @@ def comment(pitch):
     if upvote.upvote.data:
         current_pitch.upvotes = current_pitch.upvotes + 1
         db.session.commit()
-        return redirect(url_for('main.comment', pitch = current_pitch.title), pitch)
+        return redirect(url_for('main.comment', pitch = current_pitch.title))
     downvote = Downvote()
     if downvote.downvote.data:
         current_pitch.downvotes = current_pitch.downvotes + 1
         db.session.commit()
         print(current_pitch.downvotes)
-        return redirect(url_for('main.comment', pitch = current_pitch.title), pitch)
+        return redirect(url_for('main.comment', pitch = current_pitch.title))
     form = CommentForm()
     if form.validate_on_submit():
         comment = form.comment.data
