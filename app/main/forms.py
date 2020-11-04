@@ -14,7 +14,7 @@ class PitchForm(FlaskForm):
 class LoginForm(FlaskForm):
     name = StringField("Username", validators = [Required()])
     password = PasswordField("Password", validators = [Required()])         
-    submit = SubmitField('Submit')
+    submit = SubmitField('Log In')
 
 class RegistrationForm(FlaskForm):
     username = StringField("Username", validators = [Required()])
@@ -30,7 +30,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('That email is already registered here')
    
     
-    submit = SubmitField('Submit')
+    submit = SubmitField('Register')
 class Comment(FlaskForm):
     comment =StringField("Comment",  validators = [Required()])
     submit =SubmitField("Submit Comment")

@@ -15,7 +15,7 @@ def logout():
     return redirect(url_for('main.index'))
 
 @main.route('/')
-@login_required
+# @login_required
 def index():
     form = CommentForm()
     users = User.query.all()
@@ -27,6 +27,7 @@ def index():
     return render_template('index.html', pitch = pitch, title = title, form = form)
 
 @main.route('/profile', methods=['GET','POST'])
+@login_required
 def profile():
     user = User.query.filter_by(logged_in = True).first()
     print(user.username)
@@ -97,6 +98,7 @@ def registration():
     return render_template('registration.html', reg_form = form, title = title)
 
 @main.route('/<pitch>/comment/', methods = ['GET', 'POST'])
+@login_required
 def comment(pitch):
     user = User.query.filter_by(logged_in = True).first()
     if not user:

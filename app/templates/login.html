@@ -1,13 +1,21 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
+
 {% block content %}
 
-<div class="container">
+<div class="container" style="margin: 2% 10% 10% 5%">
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
         <form method="POST">
+            <p class="danger" style="background-color: aqua; text-align:center">
+                please log in
+                <br>
+            </p>
             {{ login_form.csrf_token() }}
             {{ wtf.quick_form(login_form) }}
         </form>

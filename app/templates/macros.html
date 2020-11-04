@@ -65,7 +65,7 @@
 
 {% macro displayUserPitches(pitch,form)%}
 {% for user, pitches in pitch %}
-<h1 style="text-align: center;"> {{user.username}} </h1>
+<h1 style="text-align: center; background-color:cadetblue;"> {{user.username}} </h1>
 {{displayPitch(pitches, form)}}
 {% endfor %}
 
