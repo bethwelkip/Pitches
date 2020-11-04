@@ -32,9 +32,6 @@ If you are only interested in viewing the deployed web app, click on the link be
 * chmod a+x start.sh (run only once)
 * ./start.sh
  
-
-## Technical Requirements
-   This can be found in the specs.md file.
 ## User Stories
   * A user can see the pitches posted by other people
   * A user, when logged in, can rate a pitch by downvoting or upvoting and also commenting on it.
