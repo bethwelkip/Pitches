@@ -8,6 +8,16 @@ from flask_login import login_required, login_user, logout_user
 from ..email import mail_message
 from werkzeug.security import generate_password_hash,check_password_hash
 
+def save_users():
+    users = User.query.all()
+    
+    print(type(users[0]))
+
+    comments = Comment.query.all()
+    print(comments)
+    pitches = Pitch.query.all()
+    print(pitches)
+
 @main.route('/logout')
 def logout():
     former_user = User.query.filter_by(logged_in = True).first()
@@ -17,6 +27,7 @@ def logout():
 @main.route('/')
 # @login_required
 def index():
+    # save_users()
     form = CommentForm()
     users = User.query.all()
     pitch = [(use, Pitch.query.filter_by(user_id = use.userid).all()) for use in users if len(Pitch.query.filter_by(user_id = use.userid).all())>0]
