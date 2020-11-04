@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 
 def save_users():
     users = User.query.all()
-    
+
     print(type(users[0]))
 
     comments = Comment.query.all()
@@ -133,7 +133,7 @@ def comment(pitch):
         new_comment = Comment(comment = comment, pitch_id = current_pitch.pitch_id )
         db.session.add(new_comment)
         db.session.commit()
-        return redirect(url_for('main.comment', pitch = current_pitch.title), pitch)
+        return redirect(url_for('main.comment', pitch = current_pitch.title))
     comments = Comment.query.filter_by(pitch_id = current_pitch.pitch_id).all()
     print(current_pitch.date.date())
     return render_template("comment.html", date = [current_pitch.date.date(), current_pitch.date.time()], votes = [current_pitch.upvotes, current_pitch.downvotes], downvote = downvote, upvote = upvote, pitch = current_pitch, form = form, comments = comments, user = user.username)
